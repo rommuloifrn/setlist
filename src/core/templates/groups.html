@@ -1,0 +1,7 @@
+{% for group in groups %}
+<fieldset>
+    <legend>{{group.title}}</legend>
+    <p>{{group.description}}</p>
+    <p>{{group.music_set.all.count}} musicas</p>
+</fieldset>
+{% endfor %}
