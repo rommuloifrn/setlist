@@ -19,6 +19,9 @@ class GroupAssociation(models.Model):
     participant = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=3, choices=Role.choices, default=Role.MEMBER)
 
+class AssociationRequest(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    destinatary = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Music(models.Model):
     class Tone(models.TextChoices):
