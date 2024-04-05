@@ -1,0 +1,9 @@
+<h1>{{group.title}}</h1>
+<p>{{group.description}}</p>
+participants:
+<ul>
+    <li>{{group.owner}} (owner)</li>
+    {% for ass in group.groupassociation_set.all %}
+    <li>{{ass.participant.username}}</li>
+    {% endfor %}
+</ul>

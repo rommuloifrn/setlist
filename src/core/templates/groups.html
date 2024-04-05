@@ -1,6 +1,6 @@
 {% for group in groups %}
 <fieldset>
-    <legend>{{group.title}}</legend>
+    <legend><a href="{% url 'r_group' group.id %}">{{group.title}}</a></legend>
     <p>{{group.description}}</p>
     <p>{{group.music_set.all.count}} musicas</p>
 </fieldset>

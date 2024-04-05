@@ -8,3 +8,7 @@ def index(request):
 def groups(request):
     groups = Group.objects.all()
     return render(request, "groups.html", {"groups":groups})
+
+def read_group(request, id):
+    group = Group.objects.get(pk=id)
+    return render(request, "r_group.html", {"group":group})
