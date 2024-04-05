@@ -68,5 +68,6 @@ class Setlist(models.Model):
     musics = models.ManyToManyField(Music)
 
 class Tag(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     musics = models.ManyToManyField(Music)
     title = models.CharField(max_length=30)
