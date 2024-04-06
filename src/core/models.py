@@ -9,6 +9,10 @@ class Group(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.title
+    
 
 class GroupAssociation(models.Model):
     class Role(models.TextChoices):
@@ -18,10 +22,17 @@ class GroupAssociation(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     participant = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=3, choices=Role.choices, default=Role.MEMBER)
+    
+    def __str__(self):
+        return f'{self.participant} in {self.group}'
 
 class AssociationRequest(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    destinatary = models.ForeignKey(User, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender")
+    destinatary = models.ForeignKey(User, on_delete=models.CASCADE, related_name="destinatary")
+    
+    def __str__(self):
+        return f'{self.sender} inviting {self.destinatary}'
 
 class Music(models.Model):
     class Tone(models.TextChoices):
@@ -61,13 +72,22 @@ class Music(models.Model):
     artist = models.CharField(max_length=50)
     tone = models.CharField(max_length=4, choices=Tone.choices, default=Tone.MI)
     lenght = models.DurationField()
+    
+    def __str__(self):
+        return self.title
 
 class Setlist(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     title = models.CharField(max_length=60)
     musics = models.ManyToManyField(Music)
+    
+    def __str__(self):
+        return self.title
 
 class Tag(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     musics = models.ManyToManyField(Music)
     title = models.CharField(max_length=30)
+    
+    def __str__(self):
+        return self.title
